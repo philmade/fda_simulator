@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
-import { AlertTriangle, ShieldCheck, Skull, ArrowRight, RotateCcw, BookOpen, User, Lock, CheckCircle2, ChevronDown, FileText, Filter, Scale, Activity, Loader2, Undo2 } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, Skull, ArrowRight, RotateCcw, BookOpen, User, Lock, CheckCircle2, ChevronDown, FileText, Filter, Scale, Activity, Loader2, Undo2, Zap } from 'lucide-react';
 
 // --- ASSET CONFIGURATION ---
 const ASSETS = {
@@ -189,87 +189,19 @@ const DECISIONS = {
   }
 };
 
-// --- ILLUSTRATION SYSTEM (SVG FALLBACKS) ---
-const Illustrations = {
-  elimination: {
-    soluble: () => (
-      <svg viewBox="0 0 100 100" className="w-full h-full bg-slate-900">
-        <rect width="100" height="100" fill="#1e293b" />
-        <circle cx="50" cy="50" r="30" fill="#3b82f6" opacity="0.2" />
-        <text x="50" y="90" textAnchor="middle" fill="#64748b" fontSize="10" fontFamily="monospace">DISSOLVED</text>
-      </svg>
-    ),
-    particulate: () => (
-      <svg viewBox="0 0 100 100" className="w-full h-full bg-slate-900">
-        <rect width="100" height="100" fill="#1e293b" />
-        <path d="M50 20 L80 50 L50 80 L20 50 Z" fill="#475569" stroke="#94a3b8" strokeWidth="2" />
-        <text x="50" y="90" textAnchor="middle" fill="#64748b" fontSize="10" fontFamily="monospace">SOLID</text>
-      </svg>
-    )
-  },
-  filter: {
-    magic: () => (
-      <svg viewBox="0 0 100 100" className="w-full h-full bg-slate-900">
-        <rect width="100" height="100" fill="#1e293b" />
-        <path d="M10 50 L90 50" stroke="#10b981" strokeWidth="2" strokeDasharray="4 4" />
-        <text x="50" y="80" textAnchor="middle" fill="#10b981" fontSize="10" fontWeight="bold">PASS</text>
-      </svg>
-    ),
-    physics: () => (
-      <svg viewBox="0 0 100 100" className="w-full h-full bg-slate-900">
-        <rect width="100" height="100" fill="#1e293b" />
-        <line x1="50" y1="10" x2="50" y2="90" stroke="#f43f5e" strokeWidth="4" />
-        <text x="50" y="50" textAnchor="middle" fill="#f43f5e" fontSize="10" fontFamily="monospace">BLOCKED</text>
-      </svg>
-    )
-  },
-  ruler: {
-    oral: () => (
-      <svg viewBox="0 0 100 100" className="w-full h-full bg-slate-900">
-        <rect width="100" height="100" fill="#1e293b" />
-        <line x1="10" y1="30" x2="90" y2="30" stroke="#10b981" strokeWidth="4" />
-        <text x="50" y="80" textAnchor="middle" fill="#10b981" fontSize="10">HIGH LIMIT</text>
-      </svg>
-    ),
-    injectable: () => (
-      <svg viewBox="0 0 100 100" className="w-full h-full bg-slate-900">
-         <rect width="100" height="100" fill="#1e293b" />
-         <line x1="10" y1="70" x2="90" y2="70" stroke="#f43f5e" strokeWidth="4" />
-         <text x="50" y="40" textAnchor="middle" fill="#f43f5e" fontSize="10">LOW LIMIT</text>
-      </svg>
-    )
-  },
-  baseline: {
-    soy: () => (
-      <svg viewBox="0 0 100 100" className="w-full h-full bg-slate-900">
-        <rect width="100" height="100" fill="#1e293b" />
-        <path d="M0 60 Q 25 40 50 60 T 100 60 V 100 H 0 Z" fill="#334155" />
-        <text x="50" y="30" textAnchor="middle" fill="#94a3b8" fontSize="10">HIGH NOISE</text>
-      </svg>
-    ),
-    breast_milk: () => (
-      <svg viewBox="0 0 100 100" className="w-full h-full bg-slate-900">
-        <rect width="100" height="100" fill="#1e293b" />
-        <line x1="0" y1="90" x2="100" y2="90" stroke="#334155" strokeWidth="2" />
-        <text x="50" y="50" textAnchor="middle" fill="#94a3b8" fontSize="10">ZERO NOISE</text>
-      </svg>
-    )
-  }
-};
-
 // --- COMPONENTS ---
 
 const Button = ({ onClick, children, variant = "primary", className = "" }) => {
   const variants = {
-    primary: "bg-blue-600 active:bg-blue-700 text-white border-blue-500",
-    secondary: "bg-slate-800 active:bg-slate-700 text-slate-200 border-slate-600",
-    danger: "bg-rose-600 active:bg-rose-700 text-white border-rose-500",
-    outline: "bg-transparent border-slate-600 text-slate-400 active:border-slate-400 active:text-slate-200"
+    primary: "bg-blue-600 active:bg-blue-700 text-white border-blue-500 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px]",
+    secondary: "bg-slate-800 active:bg-slate-700 text-slate-200 border-slate-600 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px]",
+    danger: "bg-rose-600 active:bg-rose-700 text-white border-rose-500 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px]",
+    outline: "bg-transparent border-slate-600 text-slate-400 active:border-slate-400 active:text-slate-200 hover:bg-slate-800"
   };
   return (
     <button
       onClick={onClick}
-      className={`px-6 py-3 rounded-lg font-bold transition-all border shadow-lg active:scale-95 text-base ${variants[variant]} ${className}`}
+      className={`px-6 py-3 rounded-lg font-bold transition-all border-2 text-base ${variants[variant]} ${className}`}
     >
       {children}
     </button>
@@ -384,7 +316,7 @@ const ScrollLayout = ({ directorImage, heroContent, children, currentTint }) => 
            </div>
 
            {/* DIALOGUE LAYER */}
-           <div className="absolute bottom-0 w-full z-10 px-6 pb-24 pt-12 bg-gradient-to-t from-slate-950 via-slate-950/95 to-transparent">
+           <div className="absolute bottom-0 w-full z-10 px-6 pb-16 pt-12 bg-gradient-to-t from-slate-950 via-slate-950/95 to-transparent">
               <div className="flex items-center gap-3 mb-4">
                  <div className="flex items-center gap-2 bg-red-600/90 text-white px-2 py-0.5 rounded-sm font-mono text-[10px] font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(220,38,38,0.6)] animate-pulse">
                     <div className="w-1.5 h-1.5 rounded-full bg-white" />
@@ -392,14 +324,14 @@ const ScrollLayout = ({ directorImage, heroContent, children, currentTint }) => 
                  </div>
               </div>
 
-              <div className="mb-4">
+              <div className="mb-2">
                  {heroContent}
               </div>
               
               {children && (
                 <button 
                   onClick={scrollToContent}
-                  className="w-full flex items-center justify-center gap-2 text-blue-400/80 animate-bounce cursor-pointer group pt-4"
+                  className="w-full flex items-center justify-center gap-2 text-blue-400/80 animate-bounce cursor-pointer group pt-2 pb-2"
                 >
                     <span className="text-[10px] font-mono uppercase tracking-[0.2em] group-hover:text-blue-300 transition-colors">Descend</span>
                     <ChevronDown className="w-4 h-4 group-hover:text-blue-300 transition-colors" />
@@ -410,7 +342,7 @@ const ScrollLayout = ({ directorImage, heroContent, children, currentTint }) => 
 
         {/* --- CONTENT SECTION --- */}
         {children && (
-          <div ref={contentRef} className="min-h-screen bg-slate-950 relative z-20 shadow-2xl">
+          <div ref={contentRef} className="min-h-screen bg-slate-950 relative z-20 shadow-2xl border-t border-slate-800">
              <div className="p-6 pt-12 pb-40"> 
                 {children}
              </div>
@@ -593,13 +525,15 @@ export default function App() {
 
     const HeroContent = (
       <div className="animate-in slide-in-from-bottom-4 duration-700">
-         <div className={`${isFail ? 'text-rose-500' : 'text-blue-500'} font-mono text-[10px] uppercase tracking-widest mb-2`}>
-           {content.badge}
+         <div className="inline-block bg-slate-900/80 backdrop-blur border border-slate-700 px-3 py-1 rounded shadow-lg mb-3 transform -skew-x-6">
+            <div className={`${isFail ? 'text-rose-500' : 'text-blue-500'} font-mono text-[10px] uppercase tracking-widest font-bold`}>
+              {content.badge}
+            </div>
          </div>
-         <h1 className={`text-2xl font-black italic tracking-tighter leading-none mb-3 ${isFail ? 'text-rose-500' : 'text-white'}`}>
+         <h1 className={`text-2xl font-black italic tracking-tighter leading-none mb-3 drop-shadow-lg ${isFail ? 'text-rose-500' : 'text-white'}`}>
            {content.title}
          </h1>
-         <div className="space-y-1.5 text-sm font-bold italic leading-snug">
+         <div className="space-y-1.5 text-sm font-bold italic leading-snug drop-shadow-md">
            {content.lines.map((line, idx) => (
              <p key={idx} className={line.style}>{line.text}</p>
            ))}
@@ -629,11 +563,11 @@ export default function App() {
                <div className="grid gap-6">
                   <button 
                     onClick={() => setStage(STAGES.CLINICAL_FAIL)}
-                    className="group relative overflow-hidden bg-slate-800 border-2 border-slate-700 hover:border-rose-500 rounded-xl p-5 text-left transition-all hover:shadow-[0_0_30px_rgba(244,63,94,0.2)]"
+                    className="group relative overflow-hidden bg-slate-800 border-2 border-slate-700 hover:border-rose-500 rounded-xl p-5 text-left transition-all hover:shadow-[0_0_30px_rgba(244,63,94,0.2)] active:scale-[0.98]"
                   >
                     <div className="relative z-10 flex items-start justify-between">
                        <div>
-                          <div className="text-[10px] font-mono text-rose-400 mb-1 uppercase tracking-widest">Option A</div>
+                          <div className="text-[10px] font-mono text-rose-400 mb-1 uppercase tracking-widest bg-slate-900/50 inline-block px-2 py-0.5 rounded">Option A</div>
                           <div className="text-xl font-black text-white mb-1 italic">Clinical Trial</div>
                           <p className="text-xs text-slate-400">Recruit infants. Perform biopsies. Measure tissues.</p>
                        </div>
@@ -643,11 +577,11 @@ export default function App() {
 
                   <button 
                     onClick={() => setStage(STAGES.STEP_1_TYPE)}
-                    className="group relative overflow-hidden bg-slate-800 border-2 border-slate-700 hover:border-blue-500 rounded-xl p-5 text-left transition-all hover:shadow-[0_0_30px_rgba(59,130,246,0.2)]"
+                    className="group relative overflow-hidden bg-slate-800 border-2 border-slate-700 hover:border-blue-500 rounded-xl p-5 text-left transition-all hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] active:scale-[0.98]"
                   >
                     <div className="relative z-10 flex items-start justify-between">
                        <div>
-                          <div className="text-[10px] font-mono text-blue-400 mb-1 uppercase tracking-widest">Option B</div>
+                          <div className="text-[10px] font-mono text-blue-400 mb-1 uppercase tracking-widest bg-slate-900/50 inline-block px-2 py-0.5 rounded">Option B</div>
                           <div className="text-xl font-black text-white mb-1 italic">Math Model</div>
                           <p className="text-xs text-slate-400">Simulate safety based on existing assumptions.</p>
                        </div>
@@ -672,8 +606,12 @@ export default function App() {
 
     const HeroContent = (
       <div className="animate-in slide-in-from-bottom-4 duration-500">
-         <div className="text-amber-500 font-mono text-[10px] uppercase tracking-widest mb-1">Incoming Message</div>
-         <h1 className="text-xl font-black text-white italic tracking-tighter leading-tight">
+         <div className="inline-block bg-amber-500/10 border border-amber-500/50 px-2 py-0.5 rounded mb-2 shadow-lg backdrop-blur-sm">
+             <div className="text-amber-500 font-mono text-[10px] uppercase tracking-widest flex items-center gap-2">
+                 <Zap className="w-3 h-3" /> Incoming Message
+             </div>
+         </div>
+         <h1 className="text-xl font-black text-white italic tracking-tighter leading-tight drop-shadow-lg">
             "{dialogue}"
          </h1>
       </div>
@@ -683,18 +621,22 @@ export default function App() {
       <ScrollLayout directorImage={directorStepImg} heroContent={HeroContent} currentTint={getCurrentTint()}>
          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
             
-            <div className="border-b border-slate-800 pb-4">
-                <span className="text-blue-500 text-[10px] font-bold uppercase tracking-widest block mb-1.5">{decisionData.title}</span>
-                <h2 className="text-xl font-bold text-white leading-tight">{decisionData.question}</h2>
+            <div className="border-b-2 border-slate-800 pb-4">
+                <span className="text-blue-500 text-[10px] font-bold uppercase tracking-widest block mb-1.5 bg-blue-900/20 inline-block px-2 py-0.5 rounded">{decisionData.title}</span>
+                <h2 className="text-2xl font-black text-white leading-tight uppercase italic">{decisionData.question}</h2>
             </div>
 
             {decisionData.narrative && (
-               <div className="bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded-r-lg">
-                 <p className="text-xs text-slate-200 leading-relaxed mb-2">
-                   <span className="font-bold text-blue-400">CONTEXT: </span>
+               <div className="relative bg-slate-800 border-2 border-slate-700 p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)]">
+                 <div className="absolute -top-3 left-4 bg-slate-900 px-2 border border-slate-700 text-[10px] font-mono text-blue-400 uppercase tracking-widest font-bold">
+                    Mission Context
+                 </div>
+                 <p className="text-xs text-slate-300 leading-relaxed mb-3 font-medium">
                    {decisionData.narrative}
                  </p>
-                 <p className="font-bold text-white text-xs">{decisionData.narrativeQuestion}</p>
+                 <div className="bg-slate-900/50 p-3 rounded border border-slate-700/50">
+                    <p className="font-bold text-white text-xs italic">"{decisionData.narrativeQuestion}"</p>
+                 </div>
                </div>
             )}
 
@@ -703,40 +645,51 @@ export default function App() {
                 <button
                   key={opt.id}
                   onClick={() => handleChoice(stepKey, opt.id)}
-                  className={`flex flex-col bg-slate-800 rounded-xl overflow-hidden border-2 transition-all text-left group shadow-lg ${opt.type === 'safe' ? 'hover:border-emerald-500' : 'hover:border-rose-500'} border-slate-700`}
+                  className={`flex flex-col bg-slate-800 overflow-hidden border-2 transition-all text-left group relative
+                    ${opt.type === 'safe' 
+                        ? 'hover:border-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]' 
+                        : 'hover:border-rose-500 hover:shadow-[0_0_20px_rgba(244,63,94,0.3)]'
+                    } 
+                    border-slate-600 shadow-lg hover:-translate-y-1`}
                 >
                   {/* SQUARE IMAGE */}
-                  <div className="w-full aspect-square bg-black relative border-b border-slate-700">
+                  <div className="w-full aspect-video bg-black relative border-b-2 border-slate-700 group-hover:border-inherit transition-colors">
                     {ASSETS.options[opt.id] && (
                       <img 
                         src={ASSETS.options[opt.id]} 
                         alt={opt.label} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
                       />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
                     
-                    {/* TYPE INDICATOR ON HOVER/ACTIVE */}
-                    <div className={`absolute top-2 right-2 px-2 py-1 rounded text-[9px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity ${opt.type === 'safe' ? 'bg-emerald-500 text-black' : 'bg-rose-500 text-white'}`}>
+                    {/* COMIC BADGE TYPE INDICATOR */}
+                    <div className={`absolute top-0 right-0 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest border-l-2 border-b-2 border-slate-900 shadow-xl
+                       ${opt.type === 'safe' ? 'bg-emerald-500 text-slate-900' : 'bg-rose-500 text-white'}`}>
                        {opt.type === 'safe' ? 'Safe Path' : 'Toxic Path'}
+                    </div>
+
+                    <div className="absolute bottom-3 left-4 right-4">
+                        <div className={`text-xl font-black italic uppercase leading-none mb-1 drop-shadow-md ${opt.type === 'safe' ? 'text-white group-hover:text-emerald-300' : 'text-white group-hover:text-rose-300'}`}>
+                            {opt.label}
+                        </div>
+                        <div className="text-[10px] font-mono text-slate-300 bg-black/40 backdrop-blur inline-block px-1.5 py-0.5 rounded border border-white/10">{opt.sub}</div>
                     </div>
                   </div>
 
-                  <div className="p-5 flex-1 flex flex-col">
-                    <div className="mb-3">
-                      <div className={`text-lg font-bold text-white mb-1 transition-colors ${opt.type === 'safe' ? 'group-hover:text-emerald-300' : 'group-hover:text-rose-300'}`}>{opt.label}</div>
-                      <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">{opt.sub}</div>
-                    </div>
-                    
+                  <div className="p-5 flex-1 flex flex-col bg-slate-800">
                     <div className="space-y-3 flex-1">
-                       <p className="text-xs text-slate-300 leading-relaxed border-l-2 border-slate-600 pl-3">
+                       <p className="text-xs text-slate-300 leading-relaxed font-medium">
                          {opt.desc}
                        </p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-700">
-                      <span className="text-[10px] font-bold text-blue-400 uppercase block mb-1">Impact:</span>
-                      <div className="text-white text-xs font-medium">{opt.implication}</div>
+                    <div className="mt-4 pt-3 border-t border-slate-700/50">
+                      <div className="flex items-center gap-2">
+                          <Activity className="w-3 h-3 text-blue-400" />
+                          <span className="text-[10px] font-bold text-blue-400 uppercase">Projected Impact:</span>
+                      </div>
+                      <div className="text-white text-xs font-bold mt-1 pl-5">{opt.implication}</div>
                     </div>
                   </div>
                 </button>
