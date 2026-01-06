@@ -31,10 +31,10 @@ const HERO_CONTENT = {
     badge: "Director Vance - FDA HQ",
     title: "CLOSE THE DOOR.",
     lines: [
-      { text: "WE HAVE A PR DISASTER AFTER THIS MERCURY CASE. THE PRESS IS ASKING ABOUT ALUMINUM ADJUVANTS.", style: "text-slate-300" },
-      { text: "THEY WANT TO KNOW IF IT ACCUMULATES IN THE BRAIN.", style: "text-white" },
-      { text: "WE HAVE ZERO INFANT SAFETY DATA. NONE.", style: "text-rose-500 font-bold" }, 
-      { text: "I NEED A STUDY THAT PROVES IT'S SAFE. GET IT DONE!", style: "text-blue-200" }
+      { text: "Vance needs a study showing aluminium is safe.", style: "text-slate-300" },
+      { text: "We currently don't really know the answer.", style: "text-white" },
+      { text: "What should you suggest to Vance?", style: "text-rose-500 font-bold" },
+      { text: "You're going to have to be quick, he seems impatient.", style: "text-blue-200" }
     ]
   },
   fail: {
@@ -48,7 +48,7 @@ const HERO_CONTENT = {
   },
   steps: {
     elimination: "DON'T GET BOGGED DOWN IN CHEMISTRY. PICK THE DATASET THAT KEEPS THE LINE MOVING.",
-    filter: "PHYSICS? I DON'T CARE ABOUT PHYSICS. I CARE ABOUT CLEARANCE RATES. PASS THE ALUUUUUMINUM!",
+    filter: "PHYSICS? I DON'T CARE ABOUT PHYSICS. I CARE ABOUT CLEARANCE RATES. DESIGN ME A MODEL THAT GETS OUR ANSWER!",
     ruler: "IF YOU SET THE BAR TOO LOW, WE FAIL. FIND A STANDARD WE CAN ACTUALLY MEET.",
     baseline: "CONTEXT IS KING. MAKE THE VACCINE LOOK SMALL. FIND ME A BIGGER NUMBER TO HIDE BEHIND."
   }
@@ -80,7 +80,7 @@ const DECISIONS = {
         label: "The 'Priest' Data",
         footerLabel: "Soluble", 
         sub: "(Dissolved Salts)",
-        desc: "Use Dr. Priest's data from injected Aluminum Citrate (a salt that dissolves in water).",
+        desc: "Use Dr. Priest's data from injected Aluminum Citrate (a salt that dissolves in water). Note: Aluminium citrate is not ultimately what is in the vaccines.",
         implication: "Math assumes aluminum flushes out rapidly (45% in 24hrs).",
         type: "safe", 
         isOfficial: true // This is the 'Trick'
@@ -295,7 +295,7 @@ const ScrollLayout = ({ directorImage, heroContent, children, currentTint }) => 
         <div className="h-[100dvh] w-full relative flex flex-col overflow-hidden border-b-4 border-slate-800">
            
            {/* IMAGE LAYER */}
-           <div className="absolute inset-0 bg-slate-900 pb-32">
+           <div className="absolute inset-0 bg-slate-900">
               {directorImage ? (
                 <img 
                   src={directorImage} 
@@ -533,65 +533,59 @@ export default function App() {
          <h1 className={`text-2xl font-black italic tracking-tighter leading-none mb-3 drop-shadow-lg ${isFail ? 'text-rose-500' : 'text-white'}`}>
            {content.title}
          </h1>
-         <div className="space-y-1.5 text-sm font-bold italic leading-snug drop-shadow-md">
+         <div className="space-y-1.5 text-sm font-bold italic leading-snug drop-shadow-md mb-6">
            {content.lines.map((line, idx) => (
              <p key={idx} className={line.style}>{line.text}</p>
            ))}
          </div>
+
+         {isFail ? (
+            <div className="text-center pt-2 pb-4">
+              <Button onClick={() => setStage(STAGES.STEP_1_TYPE)} variant="primary" className="w-full text-sm">
+                <FileText className="w-4 h-4 mr-2 inline" />
+                Launch Math Model
+              </Button>
+            </div>
+         ) : (
+            <div className="grid gap-3 pt-2 pb-4">
+              <button
+                onClick={() => setStage(STAGES.CLINICAL_FAIL)}
+                className="group relative overflow-hidden bg-slate-800/80 backdrop-blur border border-slate-700 hover:border-rose-500 rounded-lg p-3 text-left transition-all hover:shadow-[0_0_15px_rgba(244,63,94,0.3)] active:scale-[0.98]"
+              >
+                <div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[9px] font-mono text-rose-400 uppercase tracking-widest bg-slate-900/80 px-1.5 py-0.5 rounded">Option A</span>
+                          <span className="text-sm font-black text-white italic">Clinical Trial</span>
+                      </div>
+                      <p className="text-[10px] text-slate-300 leading-tight">Recruit infants. Biopsies. Real data.</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-rose-500 transition-colors" />
+                </div>
+              </button>
+
+              <button
+                onClick={() => setStage(STAGES.STEP_1_TYPE)}
+                className="group relative overflow-hidden bg-slate-800/80 backdrop-blur border border-slate-700 hover:border-blue-500 rounded-lg p-3 text-left transition-all hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] active:scale-[0.98]"
+              >
+                <div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[9px] font-mono text-blue-400 uppercase tracking-widest bg-slate-900/80 px-1.5 py-0.5 rounded">Option B</span>
+                          <span className="text-sm font-black text-white italic">Math Model</span>
+                      </div>
+                      <p className="text-[10px] text-slate-300 leading-tight">Simulate safety. Fast results.</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-blue-500 transition-colors" />
+                </div>
+              </button>
+            </div>
+         )}
       </div>
     );
 
     return (
-      <ScrollLayout directorImage={imageUrl} heroContent={HeroContent} currentTint={isFail ? "bg-rose-900/20" : "bg-blue-900/10"}>
-         <div className="space-y-8">
-            <div className="flex items-center gap-3 border-b border-slate-800 pb-4 mb-8">
-               <Skull className={`w-6 h-6 ${isFail ? 'text-rose-500' : 'text-blue-500'}`} />
-               <h2 className="text-sm font-bold text-white tracking-widest uppercase">
-                 {isFail ? 'Mission Failure' : 'Strategic Options'}
-               </h2>
-            </div>
-
-            {isFail ? (
-               <div className="text-center py-8">
-                  <p className="text-slate-400 mb-6 text-sm">Vance is furious. The ethics board laughed you out of the room. You have no choice left.</p>
-                  <Button onClick={() => setStage(STAGES.STEP_1_TYPE)} variant="primary" className="w-full">
-                    <FileText className="w-4 h-4 mr-2 inline" /> 
-                    Launch Math Model
-                  </Button>
-               </div>
-            ) : (
-               <div className="grid gap-6">
-                  <button 
-                    onClick={() => setStage(STAGES.CLINICAL_FAIL)}
-                    className="group relative overflow-hidden bg-slate-800 border-2 border-slate-700 hover:border-rose-500 rounded-xl p-5 text-left transition-all hover:shadow-[0_0_30px_rgba(244,63,94,0.2)] active:scale-[0.98]"
-                  >
-                    <div className="relative z-10 flex items-start justify-between">
-                       <div>
-                          <div className="text-[10px] font-mono text-rose-400 mb-1 uppercase tracking-widest bg-slate-900/50 inline-block px-2 py-0.5 rounded">Option A</div>
-                          <div className="text-xl font-black text-white mb-1 italic">Clinical Trial</div>
-                          <p className="text-xs text-slate-400">Recruit infants. Perform biopsies. Measure tissues.</p>
-                       </div>
-                       <ArrowRight className="w-5 h-5 text-slate-600 group-hover:text-rose-500 transition-colors" />
-                    </div>
-                  </button>
-
-                  <button 
-                    onClick={() => setStage(STAGES.STEP_1_TYPE)}
-                    className="group relative overflow-hidden bg-slate-800 border-2 border-slate-700 hover:border-blue-500 rounded-xl p-5 text-left transition-all hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] active:scale-[0.98]"
-                  >
-                    <div className="relative z-10 flex items-start justify-between">
-                       <div>
-                          <div className="text-[10px] font-mono text-blue-400 mb-1 uppercase tracking-widest bg-slate-900/50 inline-block px-2 py-0.5 rounded">Option B</div>
-                          <div className="text-xl font-black text-white mb-1 italic">Math Model</div>
-                          <p className="text-xs text-slate-400">Simulate safety based on existing assumptions.</p>
-                       </div>
-                       <ArrowRight className="w-5 h-5 text-slate-600 group-hover:text-blue-500 transition-colors" />
-                    </div>
-                  </button>
-               </div>
-            )}
-         </div>
-      </ScrollLayout>
+      <ScrollLayout directorImage={imageUrl} heroContent={HeroContent} currentTint={isFail ? "bg-rose-900/20" : "bg-blue-900/10"} children={null} />
     );
   };
 
