@@ -1008,7 +1008,7 @@ export default function App() {
         href="https://philharper.substack.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed top-3 right-3 z-50 opacity-40 hover:opacity-100 transition-opacity"
+        className="fixed bottom-3 left-3 z-50 opacity-60 hover:opacity-100 transition-opacity"
       >
         <div className="text-[8px] font-mono text-slate-400 hover:text-white tracking-wider uppercase">
           philharper.substack.com
