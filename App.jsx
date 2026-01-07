@@ -6,7 +6,7 @@ import { AlertTriangle, ShieldCheck, Skull, ArrowRight, RotateCcw, BookOpen, Use
 const ASSETS = {
   preamble: "/images/office-fda.jpg",
   director: {
-    intro: "/images/vance-intro.png",
+    intro: "/images/vance-intro.jpg",
     fail: "/images/vance-fail.jpg",
     win: "/images/vance-win.jpg",
     step1: "/images/vance-step1.jpg",
