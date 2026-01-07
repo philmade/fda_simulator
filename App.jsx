@@ -1002,6 +1002,18 @@ export default function App() {
       {stage !== STAGES.PREAMBLE && stage !== STAGES.INTRO && stage !== STAGES.CLINICAL_FAIL && stage !== STAGES.GAME_INTRO && (
          <DecisionLog config={config} onNavigate={handleNavigate} />
       )}
+
+      {/* Credit */}
+      <a
+        href="https://philharper.substack.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed top-3 right-3 z-50 opacity-40 hover:opacity-100 transition-opacity"
+      >
+        <div className="text-[8px] font-mono text-slate-400 hover:text-white tracking-wider uppercase">
+          philharper.substack.com
+        </div>
+      </a>
     </>
   );
 }
