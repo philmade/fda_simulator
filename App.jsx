@@ -330,8 +330,8 @@ const ScrollLayout = ({ directorImage, heroContent, children, currentTint, isInt
         {/* --- HERO SECTION --- */}
         <div className="h-[100dvh] w-full relative flex flex-col overflow-hidden border-b-4 border-slate-800">
 
-           {/* IMAGE LAYER - less bottom padding on intro to show more of Vance */}
-           <div className={`absolute inset-0 bg-slate-900 ${isIntroScreen ? 'pb-16' : 'pb-32'}`}>
+           {/* IMAGE LAYER */}
+           <div className="absolute inset-0 bg-slate-900">
               {directorImage ? (
                 <img
                   src={directorImage}
