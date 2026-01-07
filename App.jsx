@@ -618,7 +618,7 @@ export default function App() {
               </div>
 
               {/* Dossier content */}
-              <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 font-mono text-xs leading-relaxed">
+              <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 font-mono text-sm leading-relaxed">
                 <p className="text-white font-bold">You are an FDA staffer.</p>
                 <p className="text-slate-300">The agency has just concluded a bruising public battle over the safety of Thimerosal — the mercury-based preservative in vaccines.</p>
                 <p className="text-slate-300">After years of congressional hearings and hostile press, the FDA emerged with a favorable ruling. Mercury was declared safe.</p>
@@ -677,7 +677,7 @@ export default function App() {
               </div>
 
               {/* Game explanation */}
-              <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 font-mono text-xs leading-relaxed">
+              <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 font-mono text-sm leading-relaxed">
                 <p className="text-white font-bold">Build a simulation. Do what Vance wants, or try to do good science.</p>
                 <p className="text-slate-300">The choice is yours, but you'll have to make assumptions.</p>
                 <p className="text-white font-bold pt-2">Choose wisely.</p>
