@@ -29,12 +29,12 @@ const ASSETS = {
 // --- HERO / DIALOGUE CONFIGURATION ---
 const HERO_CONTENT = {
   intro: {
-    badge: "Director Vance - FDA HQ",
+    badge: "Director Vance",
     title: "CLOSE THE DOOR.",
     lines: [
-      { text: "WE HAVE A PR DISASTER AFTER THIS MERCURY CASE. THE PRESS IS ASKING ABOUT ALUMINUM ADJUVANTS.", style: "text-slate-300" },
-      { text: "THEY WANT TO KNOW IF IT ACCUMULATES IN THE BRAIN.", style: "text-white" },
-      { text: "WE HAVE ZERO INFANT SAFETY DATA. NONE.", style: "text-rose-500 font-bold" }, 
+      { text: "THIS IS A PR DISASTER.", style: "text-slate-300" },
+      { text: "THE PRESS ARE BREATHING DOWN MY NECK ABOUT ALUMINIUM IN OUR VACCINES.", style: "text-white" },
+      { text: "WE DON'T HAVE ANY SAFETY DATA. NONE!", style: "text-rose-500 font-bold" },
       { text: "I NEED A STUDY THAT PROVES IT'S SAFE. GET IT DONE!", style: "text-blue-200" }
     ]
   },
@@ -44,15 +44,15 @@ const HERO_CONTENT = {
     lines: [
       { text: "YOU CAN'T JUST BIOPSY BABIES! ETHICS WOULD HANG US.", style: "text-slate-200" },
       { text: "WE CAN'T LOOK FOR THE ALUMINUM.", style: "text-rose-500 font-bold" },
-      { text: "WE HAVE TO SIMULATE IT. MAKE A MODEL!.", style: "text-white font-black text-xl" }
+      { text: "WE HAVE TO SIMULATE IT. MAKE A MODEL!", style: "text-white font-black text-xl" }
     ]
   },
   steps: {
-    elimination: "HURRY UP AND BUILD THAT MODEL! DON'T GET BOGGED DOWN IN CHEMISTRY! JUST PICK THE DATASET THAT KEEPS THE LINE MOVING!",
-    filter: "PICK A KIDNEY MODEL! AND REMEMBER, I DON'T CARE ABOUT PHYSICS! I CARE ABOUT CLEARANCE RATES!",
-    ruler: "FIND ME A WORKABLE TOXICITY! IF YOU SET THE BAR TOO LOW, WE FAIL! FIND A STANDARD WE CAN ACTUALLY MEET!",
-    absorption: "GOOD CHOICE ON THE ORAL STANDARD! NOW — HOW MUCH DO PEOPLE ACTUALLY ABSORB WHEN THEY EAT IT? FIND ME THE RIGHT NUMBER!",
-    baseline: "LAST STEP! PICK A PATIENT PROFILE! AND REMEMBER — WE'RE NOT TRYING TO PROVE IT'S DANGEROUS!"
+    elimination: "PICK A DATASET! DON'T OVERTHINK IT!",
+    filter: "KIDNEYS CLEAR IT, RIGHT? MAKE SURE THEY DO!",
+    ruler: "FIND A LIMIT WE CAN ACTUALLY PASS!",
+    absorption: "GOOD! NOW FIND THE RIGHT ABSORPTION RATE!",
+    baseline: "LAST STEP! PICK A BABY SIZE!"
   }
 };
 
@@ -76,28 +76,28 @@ const DECISIONS = {
     icon: FileText,
     title: "Step 1: The Input Data",
     shortTitle: "Input",
-    question: "We need to simulate how aluminium moves through the body, but...",
-    narrative: "We have a data gap. We don't actually know how fast vaccine nanoparticles are cleared... We have to find a dataset we can use, perhaps from a different study.",
-    narrativeQuestion: "Do we run the simulation using data from a dissolvable Aluminium salt, which leaves quickly, or the actual Aluminium used in the vaccines?",
+    question: "How fast does vaccine aluminum leave the body?",
+    narrative: "We don't have data for vaccine aluminum. We need to borrow from another study.",
+    narrativeQuestion: "Use data from a different, fast-clearing form... or find data for the actual ingredient?",
     options: [
       {
         id: 'soluble',
         label: "The 'Priest' Data",
         footerLabel: "Soluble",
         sub: "(Dissolved Salts)",
-        desc: "Use Dr. Priest's data from injected Aluminum Citrate, a salt that dissolves in water. He injected a tiny amount of it too... It's good data but the formulation is completely different to what's in the vaccine. The dose is also much smaller.",
-        implication: "Math assumes aluminum flushes out rapidly (45% in 24hrs).",
+        desc: "Use data from a water-soluble salt. Clears fast. Different formula, tiny dose.",
+        implication: "Assumes 45% clears in 24hrs. Convenient.",
         type: "safe",
-        isOfficial: true // This is the 'Trick'
+        isOfficial: true
       },
       {
         id: 'particulate',
         label: "The Real Ingredient",
         footerLabel: "Particulate",
         sub: "(Solid Nanoparticles)",
-        desc: "Find data for the actual ingredient used: Aluminum Hydroxide or Aluminium Phosphate crystals. They are designed not to dissolve and so they behave differently to Dr Priest's formula.",
-        implication: "Math shows aluminum could be trapped in body for years.",
-        type: "toxic", 
+        desc: "Use data for the actual vaccine ingredient. It doesn't dissolve.",
+        implication: "Could stay in the body for years.",
+        type: "toxic",
         isOfficial: false
       }
     ]
@@ -106,17 +106,17 @@ const DECISIONS = {
     icon: Filter,
     title: "Step 2: The Kidney Filter",
     shortTitle: "Filter",
-    question: "The aluminum is in the form of nanoparticles. Can they fit through the kidney's filter?",
-    narrative: "The math model assumes that if aluminum is in the blood, the kidneys can grab it and clear it. But the kidney is just a biological sieve with very small holes (8nm).",
-    narrativeQuestion: "What if larger crystals of aluminium get into the blood? Do we ignore physics and assume the particles can pass through into the kidney?",
+    question: "Can aluminum particles pass through the kidney filter?",
+    narrative: "Kidneys filter blood through tiny 8nm pores.",
+    narrativeQuestion: "Vaccine particles are 1000x too big. Do we ignore that?",
     options: [
       {
         id: 'magic',
         label: "The 'Magic' Filter",
         footerLabel: "Magic",
         sub: "(Official Assumption)",
-        desc: "Assume the aluminium particles behave like water. Even though the particles are 1000x bigger than the kidney pores, use math that assumes they pass right through.",
-        implication: "The aluminium will be quickly cleared by the kidneys.",
+        desc: "Assume particles magically pass through. Ignore size.",
+        implication: "Kidneys clear it. Problem solved.",
         type: "safe",
         isOfficial: true
       },
@@ -125,8 +125,8 @@ const DECISIONS = {
         label: "The 'Physics' Filter",
         footerLabel: "Blocked",
         sub: "(Pore Size Limit)",
-        desc: "Respect the size limit. The kidney filter is 8nm wide. The vaccine particles could be 10,000nm wide. They are physically too big to be processed through the kidney.",
-        implication: "The body must first break down the aluminium to smaller particles somehow.",
+        desc: "8nm filter. 10,000nm particle. It doesn't fit.",
+        implication: "Particles get trapped.",
         type: "toxic",
         isOfficial: false
       }
@@ -136,17 +136,17 @@ const DECISIONS = {
     icon: Scale,
     title: "Step 3: The Safety Limit",
     shortTitle: "Limit",
-    question: "How much aluminum is 'Too Much'? Where is the Red Line?",
-    narrative: "This is the most critical part of our model. How we calculate the toxic limit will strongly influence the result.",
-    narrativeQuestion: "Should we model toxicity based on how to body responds to EATING it or how it responds to it being INJECTED?",
+    question: "What's the safe limit?",
+    narrative: "This decides everything.",
+    narrativeQuestion: "Use the limit for eating aluminum... or for injecting it?",
     options: [
       {
         id: 'oral',
         label: "The 'Oral' Standard",
         footerLabel: "Eating",
         sub: "(Ingestion MRL)",
-        desc: "Use the safety limit for EATING aluminum. Since you poop out 99.9% of what you eat, this limit is huge.",
-        implication: "The Safety bar will be set quite high. It's hard to fail from here.",
+        desc: "Use the EATING limit. You poop out 99.9%.",
+        implication: "Massive safety margin. Easy pass.",
         type: "safe",
         isOfficial: true
       },
@@ -155,8 +155,8 @@ const DECISIONS = {
         label: "The 'IV' Standard",
         footerLabel: "IV Line",
         sub: "(Parenteral Limit)",
-        desc: "Use the FDA limit for Introvenous fluids (4-5 mcg/kg). This is the only standard you can find for aluminum entering the body via a needle. ",
-        implication: "These limits look tight...How much aluminum is in that vaccine again?",
+        desc: "Use the IV limit. The only standard for injected aluminum.",
+        implication: "It's tight. Very tight.",
         type: "toxic",
         isOfficial: false
       }
@@ -164,11 +164,11 @@ const DECISIONS = {
   },
   absorption: {
     icon: Scale,
-    title: "Step 3b: The 'Exchange Rate'", // Changed to match the metaphor
+    title: "Step 3b: The Absorption Rate",
     shortTitle: "Absorb",
-    question: "We have a Safe Limit for EATING aluminum but we need to convert it to a Safe Limit for BLOOD levels...",
-    narrative: "If eating 100 units is safe, and the gut only absorbs 1% into the blood, it means having 1 unit in the blood must be safe. The 'Absorption Rate' directly determines the safe amount we'll use for the model.",
-    narrativeQuestion: "Maybe there's leeway here... Do we use the modern, strict absorption rate, or dig up an older, higher number?",
+    question: "Convert the eating limit to a blood limit.",
+    narrative: "Higher absorption rate = higher 'safe' blood level.",
+    narrativeQuestion: "Use the modern rate... or find a more generous one?",
     noImages: true,
     options: [
       {
@@ -176,8 +176,8 @@ const DECISIONS = {
         label: "0.1% (Modern Science)",
         footerLabel: "0.1%",
         sub: "(Strict Standard)",
-        desc: "Use the standard accepted rate (0.1%). This means very little aluminum naturally enters the blood when you eat it, meaning the safe blood limit would be lower.",
-        implication: "Result: The calculated 'Safe Blood Limit' is TINY. The vaccine spike will probably exceed it.",
+        desc: "0.1% — the accepted modern rate.",
+        implication: "Safe limit is tiny. We'll fail.",
         type: "toxic",
         isOfficial: false
       },
@@ -186,8 +186,8 @@ const DECISIONS = {
         label: "0.78% (The Loophole)",
         footerLabel: "0.78%",
         sub: "(Mitkus Choice)",
-        desc: "You found an outlier study... It seems to suggest up to 0.78% absorption of aluminium. This buys you 8x more aluminum in the blood before toxicity is reached...",
-        implication: "Result: The 'Safe Blood Limit' becomes 8x higher. We create a massive safety buffer by using this number.",
+        desc: "0.78% — from one outlier study.",
+        implication: "8x more headroom. We pass.",
         type: "safe",
         isOfficial: true
       }
@@ -197,17 +197,17 @@ const DECISIONS = {
     icon: Activity,
     title: "Step 4: The Patient Profile",
     shortTitle: "Patient",
-    question: "What size baby should we model? Not all babies are born the same size...",
-    narrative: "The model assumes the baby is big enough to handle the dose. The vaccine dose is fixed — but baby sizes vary. A smaller baby means a higher concentration per kilogram.",
-    narrativeQuestion: "Do we model a standard 50th percentile infant, or account for premature and low birth weight babies?",
+    question: "How big is our test baby?",
+    narrative: "Same dose, different baby sizes. Smaller = higher concentration.",
+    narrativeQuestion: "Average baby... or include preemies?",
     options: [
       {
         id: 'standard',
         label: "50th Percentile",
         footerLabel: "Standard",
         sub: "(Standard Growth)",
-        desc: "Model a healthy, full-term baby (3.5kg at birth) who gains weight rapidly. The body volume is large enough to dilute the aluminum.",
-        implication: "The dose is spread across more body mass. Looks safer.",
+        desc: "3.5kg healthy baby. Big enough to dilute the dose.",
+        implication: "Looks safe.",
         type: "safe",
         isOfficial: true
       },
@@ -216,8 +216,8 @@ const DECISIONS = {
         label: "The Preemie",
         footerLabel: "Preemie",
         sub: "(Low Birth Weight)",
-        desc: "Model a premature baby (2kg or less). They get the same vaccine dose as the big baby, but their body is half the size.",
-        implication: "Same dose, smaller body. Concentration doubles.",
+        desc: "2kg preemie. Same dose, half the body.",
+        implication: "Concentration doubles.",
         type: "toxic",
         isOfficial: false
       }
@@ -623,7 +623,6 @@ export default function App() {
                 <p className="text-slate-300">The agency has just concluded a bruising public battle over the safety of Thimerosal — the mercury-based preservative in vaccines.</p>
                 <p className="text-slate-300">After years of congressional hearings and hostile press, the FDA emerged with a favorable ruling. Mercury was declared safe.</p>
                 <p className="text-slate-300">But victory came at a cost. The press is hungry for the next story...</p>
-                <p className="text-slate-400 italic">Despite the win, mood at the FDA is tense.</p>
                 <p className="text-white font-bold pt-2">You walk into your office to find your boss waiting.</p>
               </div>
 
@@ -679,11 +678,9 @@ export default function App() {
 
               {/* Game explanation */}
               <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 font-mono text-xs leading-relaxed">
-                <p className="text-white font-bold">You must now build a mathematical model.</p>
-                <p className="text-slate-300">Your task is to simulate how aluminum is cleared from an infant's body after vaccination.</p>
-                <p className="text-slate-300">There is very little real data to work with. You'll have to make assumptions.</p>
-                <p className="text-slate-400 italic">Vance seems pretty keen to get a particular answer...</p>
-                <p className="text-white font-bold pt-2">Choose your model inputs carefully. Balance Vance's demands against your own judgement.</p>
+                <p className="text-white font-bold">Build a simulation. Do what Vance wants, or try to do good science.</p>
+                <p className="text-slate-300">The choice is yours, but you'll have to make assumptions.</p>
+                <p className="text-white font-bold pt-2">Choose wisely.</p>
               </div>
 
               {/* Begin button */}
@@ -692,7 +689,7 @@ export default function App() {
                   onClick={() => setStage(STAGES.STEP_1_TYPE)}
                   className="w-full flex items-center justify-center gap-2 text-blue-400/80 cursor-pointer group py-2"
                 >
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] group-hover:text-blue-300 transition-colors">Begin Simulation</span>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] group-hover:text-blue-300 transition-colors">Begin</span>
                   <ChevronDown className="w-4 h-4 group-hover:text-blue-300 transition-colors animate-bounce" />
                 </button>
               </div>
@@ -760,9 +757,8 @@ export default function App() {
                     <div className="relative z-10 pr-16">
                        <div className="text-2xl font-black text-white mb-2 italic uppercase tracking-tight drop-shadow-lg group-hover:text-blue-300 transition-colors">
                           <FileText className="w-5 h-5 mr-2 inline-block" />
-                          Launch Math Model
+                          Fine.
                        </div>
-                       <p className="text-xs text-slate-300 font-medium leading-relaxed">Build a simulation to prove safety. <span className="text-blue-400 font-bold">It's the only way forward now.</span></p>
                     </div>
                     <ArrowRight className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-600 group-hover:text-blue-500 group-hover:translate-x-1 transition-all" />
                   </button>
@@ -775,7 +771,7 @@ export default function App() {
                         <span className="text-[10px] font-black text-slate-900 uppercase tracking-wider">Your Move!</span>
                      </div>
                      <p className="text-sm text-white font-bold italic leading-relaxed pt-2">
-                        "Vance seems stressed. You need a study and quickly. Which one are you going to suggest?"
+                        "Vance is stressed, and he needs safety data. There is none. How do you get it?"
                      </p>
                   </div>
 
@@ -789,7 +785,7 @@ export default function App() {
                        </div>
                        <div className="relative z-10 pr-16">
                           <div className="text-2xl font-black text-white mb-2 italic uppercase tracking-tight drop-shadow-lg group-hover:text-rose-300 transition-colors">Clinical Trial</div>
-                          <p className="text-xs text-slate-300 font-medium leading-relaxed">Recruit infants, perform biopsies, measure tissues. <span className="text-white font-bold">Great results</span>, but it will take a <span className="text-rose-400 font-bold">long time</span>.</p>
+                          <p className="text-xs text-slate-300 font-medium leading-relaxed">Get blood, urine and hair data from babies. <span className="text-rose-400 font-bold">Real data. Might prove it's dangerous.</span></p>
                        </div>
                        <ArrowRight className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-600 group-hover:text-rose-500 group-hover:translate-x-1 transition-all" />
                      </button>
@@ -803,7 +799,7 @@ export default function App() {
                        </div>
                        <div className="relative z-10 pr-16">
                           <div className="text-2xl font-black text-white mb-2 italic uppercase tracking-tight drop-shadow-lg group-hover:text-blue-300 transition-colors">Math Model</div>
-                          <p className="text-xs text-slate-300 font-medium leading-relaxed">Simulate safety based on existing assumptions. <span className="text-blue-400 font-bold">Quick</span>, but it's not clear how <span className="text-white font-bold">good the results</span> will be.</p>
+                          <p className="text-xs text-slate-300 font-medium leading-relaxed">Simulate it with assumptions. No actual measurements. <span className="text-blue-400 font-bold">We control the assumptions.</span></p>
                        </div>
                        <ArrowRight className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-600 group-hover:text-blue-500 group-hover:translate-x-1 transition-all" />
                      </button>
@@ -959,12 +955,12 @@ export default function App() {
          </div>
 
          <h1 className="text-xl font-black text-white italic tracking-tighter mb-2 leading-none">
-            {isSuccess ? "EXCELLENT WORK." : "UNACCEPTABLE."}
+            {isSuccess ? "PERFECT." : "UNACCEPTABLE."}
          </h1>
          <p className="text-sm text-white font-medium leading-tight italic">
-            {isSuccess 
-              ? "\"YOUR MATH HAS PROVED IT SAFE. THIS WILL KILL THE STORY. PRINT IT. I'LL GET YOU A PROMOTION FOR THIS.\"" 
-              : "\"WE CAN'T PUBLISH 'TOXIC'! IT WILL CAUSE A PANIC. GO BACK AND FIX THE INPUTS!\""}
+            {isSuccess
+              ? "\"PRINT IT. YOU'RE GETTING A PROMOTION.\""
+              : "\"FIX THE INPUTS.\""}
          </p>
 
          <div className="mt-6">
