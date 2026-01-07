@@ -4,25 +4,25 @@ import { AlertTriangle, ShieldCheck, Skull, ArrowRight, RotateCcw, BookOpen, Use
 
 // --- ASSET CONFIGURATION ---
 const ASSETS = {
-  preamble: "https://i.ibb.co/CFYPs1y/office-FDA.jpg",
+  preamble: "/images/office-fda.jpg",
   director: {
-    intro: "https://i.ibb.co/gFMTWjGm/vance.png",
-    fail: "https://i.ibb.co/Wvch7x1W/Gemini-Generated-Image-uraz96uraz96uraz.jpg",
-    win: "https://i.ibb.co/jvRXfb43/vance-beer.jpg",
-    step1: "https://i.ibb.co/HLwbp8bG/watch.jpg",
-    step2: "https://i.ibb.co/21QTwNXN/hands-on-face.jpg",
-    step3: "https://i.ibb.co/9kyg9Thy/on-phone.jpg",
-    step4: "https://i.ibb.co/V0qYMVc3/blinds.jpg",
+    intro: "/images/vance-intro.png",
+    fail: "/images/vance-fail.jpg",
+    win: "/images/vance-win.jpg",
+    step1: "/images/vance-step1.jpg",
+    step2: "/images/vance-step2.jpg",
+    step3: "/images/vance-step3.jpg",
+    step4: "/images/vance-step4.jpg",
   },
   options: {
-    soluble: "https://i.ibb.co/yFNtZgcM/Gemini-Generated-Image-ixvqpiixvqpiixvq.jpg",
-    particulate: "https://i.ibb.co/5hkDPmK2/Gemini-Generated-Image-lq43relq43relq43.jpg",
-    magic: "https://i.ibb.co/tT4TbDp9/magic-partcles.jpg",
-    physics: "https://i.ibb.co/xqXKj9FL/blocked-particles.jpg",
-    oral: "https://i.ibb.co/Kct5hXpk/gut-ingestion.jpg",
-    injectable: "https://i.ibb.co/TxB09hTx/lymph-injection.jpg",
-    standard: "https://i.ibb.co/RGBjz443/3-5kg-baby.jpg",
-    preemie: "https://i.ibb.co/BHT2hv76/2-5kg-baby.jpg"
+    soluble: "/images/option-soluble.jpg",
+    particulate: "/images/option-particulate.jpg",
+    magic: "/images/option-magic.jpg",
+    physics: "/images/option-physics.jpg",
+    oral: "/images/option-oral.jpg",
+    injectable: "/images/option-injectable.jpg",
+    standard: "/images/option-standard.jpg",
+    preemie: "/images/option-preemie.jpg"
   }
 };
 
