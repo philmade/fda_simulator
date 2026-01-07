@@ -50,7 +50,7 @@ const HERO_CONTENT = {
   steps: {
     elimination: "PICK A DATASET! DON'T OVERTHINK IT!",
     filter: "KIDNEYS CLEAR IT, RIGHT? MAKE SURE THEY DO!",
-    ruler: "FIND A LIMIT WE CAN ACTUALLY PASS!",
+    ruler: "FIND A TOXICITY LIMIT WE CAN ACTUALLY PASS!",
     absorption: "GOOD! NOW FIND THE RIGHT ABSORPTION RATE!",
     baseline: "LAST STEP! PICK A BABY SIZE!"
   }
@@ -126,7 +126,7 @@ const DECISIONS = {
         footerLabel: "Blocked",
         sub: "(Pore Size Limit)",
         desc: "8nm filter. 10,000nm particle. It doesn't fit.",
-        implication: "Particles get trapped.",
+        implication: "Particles can't easily be cleared by the kidneys.",
         type: "toxic",
         isOfficial: false
       }
@@ -198,8 +198,8 @@ const DECISIONS = {
     title: "Step 4: The Patient Profile",
     shortTitle: "Patient",
     question: "How big is our test baby?",
-    narrative: "Same dose, different baby sizes. Smaller = higher concentration.",
-    narrativeQuestion: "Average baby... or include preemies?",
+    narrative: "The aluminium dose is constant, but babies come in different sizes. Should we account for that?",
+    narrativeQuestion: "Model one average baby... or include a range of weights?",
     options: [
       {
         id: 'standard',
@@ -216,7 +216,7 @@ const DECISIONS = {
         label: "The Preemie",
         footerLabel: "Preemie",
         sub: "(Low Birth Weight)",
-        desc: "2kg preemie. Same dose, half the body.",
+        desc: "Include a 2kg preemie. Same dose, half the body.",
         implication: "Concentration doubles.",
         type: "toxic",
         isOfficial: false
